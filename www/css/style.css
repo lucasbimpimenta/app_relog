@@ -1,0 +1,63 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.navbar-fixed {
+	z-index:999;
+}
+
+nav.caixa {
+	background-image: url("imgs/bg_header.jpg"); /* The image used */
+	background-color: #f2f2f2; /* Used if the image is unavailable */
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+nav .brand-logo {
+	background-image: url("imgs/logo_caixa.png"); /* The image used */
+	background-position: left; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	padding-left: 70px;
+
+}
+
+a.collection-item.caixa {
+	color: #005CA9;
+	font-weight: bold;
+}
+
+a.collection-item.caixa small {
+	color: #48586C;
+	font-weight: normal;
+}
+
+h6.caixa {
+	color: #F39200;
+	font-weight: bold;
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+
+.card-title.caixa {
+	color: #005CA9;
+	font-weight: bold;
+	font-size:17px;
+}
+
+.fixo-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
