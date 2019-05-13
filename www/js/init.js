@@ -4,8 +4,6 @@
     $('.sidenav').sidenav();
 	$('.tabs').tabs({swipeable: false});
 	$('.modal').modal();
-	
-	init();
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
@@ -21,7 +19,7 @@ function FinalizarVistoria() {
 }
 
 
-
+/*
 var canvas;
 var canvasWidth;
 var ctx;
@@ -49,7 +47,7 @@ function resizeCanvas() {
 	canvas.width = window.innerWidth;
 	canvas.height = window.innerHeight;
 }
-
+*/
 
 
 var app = {
@@ -80,3 +78,76 @@ var app = {
 };
 
 app.initialize();
+
+var canvas = new fabric.Canvas('canvas');
+var HideControls = {
+            'tl':true,
+            'tr':false,
+            'bl':true,
+            'br':true,
+            'ml':true,
+            'mt':true,
+            'mr':true,
+            'mb':true,
+            'mtr':true
+        };
+		
+fabric.Image.fromURL('imgs/seta_vermelha.png', function (img) {
+    img.top = 60;
+    img.left = 30;
+    img.setControlsVisibility(HideControls);
+    canvas.add(img);
+});
+
+canvas.renderAll();
+
+window.addEventListener('resize', resizeCanvas, false);
+
+function resizeCanvas() {
+canvas.setHeight(window.innerHeight);
+canvas.setWidth(window.innerWidth);
+canvas.renderAll();
+}
+
+// resize on init
+resizeCanvas();
+
+function addDeleteBtn(x, y){
+    $(".deleteBtn").remove(); 
+    var btnLeft = x-10;
+    var btnTop = y-10;
+    var deleteBtn = '<img src="imgs/remove.png" class="deleteBtn" style="position:absolute;top:'+btnTop+'px;left:'+btnLeft+'px;cursor:pointer;width:20px;height:20px;"/>';
+    $(".canvas-container").append(deleteBtn);
+}
+
+canvas.on('object:selected',function(e){
+        addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+});
+
+canvas.on('mouse:down',function(e){
+    if(!canvas.getActiveObject())
+    {
+        $(".deleteBtn").remove(); 
+    }
+});
+
+canvas.on('object:modified',function(e){
+    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
+});
+
+canvas.on('object:scaling',function(e){
+    $(".deleteBtn").remove(); 
+});
+canvas.on('object:moving',function(e){
+    $(".deleteBtn").remove(); 
+});
+canvas.on('object:rotating',function(e){
+    $(".deleteBtn").remove(); 
+});
+$(document).on('click',".deleteBtn",function(){
+    if(canvas.getActiveObject())
+    {
+        canvas.remove(canvas.getActiveObject());
+        $(".deleteBtn").remove();
+    }
+});
