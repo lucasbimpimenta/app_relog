@@ -1,10 +1,97 @@
+var icon_w = 10;
+var icon_h = 10;
+
+var redIcon = L.icon({
+	iconUrl: 'imgs/red.png',
+	shadowUrl: '',
+	iconSize: [icon_w, icon_h]
+});
+
+var map = L.map('map', {
+	crs: L.CRS.Simple
+	,inZoom: -5
+	,minZoom: 0 
+    ,maxZoom: 2
+});
+
+var img = new Image();
+var height = img.height;
+var width = img.width;
+img.src = 'leiautes/terreo.png';
+
+img.onload = function(){
+	height = img.height;
+	width = img.width;
+	
+	console.log(height, width);
+}
+
+console.log(height, width);
+
+var bounds = [[0,0], [501,1651]];
+var image = L.imageOverlay('leiautes/terreo.png', bounds).addTo(map);
+
+map.setMaxBounds(bounds);
+map.on('drag', function() {
+    map.panInsideBounds(bounds, { animate: false });
+});
+
+map.fitBounds(bounds);
+
+var theMarker = undefined;
+
+  map.on('click',function(e){
+	lat = e.latlng.lat;
+	lon = e.latlng.lng;
+	
+	redIcon = L.icon({
+		iconUrl: 'imgs/red.png',
+		shadowUrl: '',
+		iconSize: [icon_w, icon_h]
+	});
+
+	console.log("You clicked the map at LAT: "+ lat+" and LONG: "+lon );
+		//Clear existing marker, 
+
+		if (theMarker != undefined) {
+			  map.removeLayer(theMarker);
+		};
+
+	//Add a marker to show where you clicked.
+	theMarker = L.marker([lat,lon], {icon: redIcon, draggable: true}).addTo(map);  
+});
+
+map.on('zoomend', function() {
+    var currentZoom = map.getZoom();
+
+    //Update X and Y based on zoom level
+    icon_h = 10 + (currentZoom*1); //Update x 
+    icon_w = 10 + (currentZoom*1); //Update Y
+
+	icon_h =  Math.pow(10, currentZoom+1);    
+	icon_w =  Math.pow(10, currentZoom+1);    
+	
+	console.log(currentZoom, icon_w, icon_h);
+	
+    var LeafIcon = L.icon({
+        
+			iconUrl: 'imgs/red.png',
+			shadowUrl: '',
+            iconSize: [icon_w, icon_h] // Change icon size according to zoom level
+        
+    });
+	
+	if (theMarker != undefined) {
+		theMarker.setIcon(LeafIcon);
+	}
+});
+
 (function($){
   $(function(){
 
     $('.sidenav').sidenav();
 	$('.tabs').tabs({swipeable: false});
 	$('.modal').modal();
-
   }); // end of document ready
 })(jQuery); // end of jQuery name space
 
@@ -17,38 +104,6 @@ function FinalizarVistoria() {
 	$('.exibe_na_vistoria').addClass('hide');
 	$('.esconde_na_vistoria').removeClass('hide');
 }
-
-
-/*
-var canvas;
-var canvasWidth;
-var ctx;
-
-function init() {
-	canvas = document.getElementById('mycanvas');
-	if (canvas.getContext) {
-	  ctx = canvas.getContext("2d");
-
-	  window.addEventListener('resize', resizeCanvas, false);
-	  window.addEventListener('orientationchange', resizeCanvas, false);
-	  resizeCanvas();
-	}
-	
-	var img = new Image();
-	img.src = 'leiautes/terreo.png';
-	
-	img.onload = function() {
-		//Draw the image on the canvas
-		ctx.drawImage(img, 0, 0);
-	}
-}
-
-function resizeCanvas() {
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-}
-*/
-
 
 var app = {
     // Application Constructor
@@ -79,75 +134,3 @@ var app = {
 
 app.initialize();
 
-var canvas = new fabric.Canvas('canvas');
-var HideControls = {
-            'tl':true,
-            'tr':false,
-            'bl':true,
-            'br':true,
-            'ml':true,
-            'mt':true,
-            'mr':true,
-            'mb':true,
-            'mtr':true
-        };
-		
-fabric.Image.fromURL('imgs/seta_vermelha.png', function (img) {
-    img.top = 60;
-    img.left = 30;
-    img.setControlsVisibility(HideControls);
-    canvas.add(img);
-});
-
-canvas.renderAll();
-
-window.addEventListener('resize', resizeCanvas, false);
-
-function resizeCanvas() {
-canvas.setHeight(window.innerHeight);
-canvas.setWidth(window.innerWidth);
-canvas.renderAll();
-}
-
-// resize on init
-resizeCanvas();
-
-function addDeleteBtn(x, y){
-    $(".deleteBtn").remove(); 
-    var btnLeft = x-10;
-    var btnTop = y-10;
-    var deleteBtn = '<img src="imgs/remove.png" class="deleteBtn" style="position:absolute;top:'+btnTop+'px;left:'+btnLeft+'px;cursor:pointer;width:20px;height:20px;"/>';
-    $(".canvas-container").append(deleteBtn);
-}
-
-canvas.on('object:selected',function(e){
-        addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-});
-
-canvas.on('mouse:down',function(e){
-    if(!canvas.getActiveObject())
-    {
-        $(".deleteBtn").remove(); 
-    }
-});
-
-canvas.on('object:modified',function(e){
-    addDeleteBtn(e.target.oCoords.tr.x, e.target.oCoords.tr.y);
-});
-
-canvas.on('object:scaling',function(e){
-    $(".deleteBtn").remove(); 
-});
-canvas.on('object:moving',function(e){
-    $(".deleteBtn").remove(); 
-});
-canvas.on('object:rotating',function(e){
-    $(".deleteBtn").remove(); 
-});
-$(document).on('click',".deleteBtn",function(){
-    if(canvas.getActiveObject())
-    {
-        canvas.remove(canvas.getActiveObject());
-        $(".deleteBtn").remove();
-    }
-});

@@ -10,6 +10,7 @@
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="node_modules/materialize-css/dist/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
@@ -99,15 +100,16 @@
 		</div>
 	</div>
 	
-	<div class="imagem-overlay">
-		<canvas id="canvas" ></canvas>
+	<div id="map" class="col s12">
+
 	</div>
+
 
   <!--  Scripts-->
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
   <script src="node_modules/materialize-css/dist/js/materialize.js"></script>
-  <script src="cordova.js"></script>
-  <script src="js/fabric.min.js"></script>
+  <script src="node_modules/leaflet/dist/leaflet.js"></script>
   <script src="js/init.js"></script>
 
   </body>
