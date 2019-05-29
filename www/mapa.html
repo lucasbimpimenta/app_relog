@@ -8,7 +8,7 @@
 	<title>Vistoria RELOG</title>
 
   <!-- CSS  -->
-  <link href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="node_modules/materialize-css/dist/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="node_modules/leaflet/dist/leaflet.css" rel="stylesheet" />
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -18,17 +18,15 @@
 		<nav class="caixa" role="navigation">
 			<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">RELOG</a>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="#"><i class="fas fa-hourglass-start"></i>&nbsp;Unidades Pendentes</a></li>
-					<li><a href="#"><i class="fas fa-check-double"></i>&nbsp;Unidades Concluídas</a></li>
-					<li><a href="#"><i class="fas fa-upload"></i>&nbsp;Importar Unidades</a></li>
+					<li><a href="#">Unidades Pendentes</a></li>
+					<li><a href="#">Unidades Concluídas</a></li>
 				</ul>
 
 				<ul id="nav-mobile" class="sidenav">
-					<li><a href="#"><i class="fas fa-hourglass-start"></i>&nbsp;Unidades Pendentes</a></li>
-					<li><a href="#"><i class="fas fa-check-double"></i>&nbsp;Unidades Concluídas</a></li>
-					<li><a href="#"><i class="fas fa-upload"></i>&nbsp;Importar Unidades</a></li>
+					<li><a href="#">Unidades Pendentes</a></li>
+					<li><a href="#">Unidades Concluídas</a></li>
 				</ul>
-				<a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+				<a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
 			</div>
 		</nav>
 	</div>
@@ -40,8 +38,8 @@
 
 						<span class="card-title caixa">Ag. Divinópolis</span>
 						<p class="esconde_na_vistoria"><small>Av. Primeiro de Junho, 579 - Centro - Divinópolis</br>Responsável: Fulano de Tal</small></p>
-						<a class="waves-effect waves-light btn-small blue esconde_na_vistoria" href="maps:daddr=38.715362,-75.086898"><i class="fas fa-car"></i>&nbsp;Ir</a>
-						<a class="waves-effect waves-light btn-small blue esconde_na_vistoria" onClick="IniciarVistoria()"><i class="fas fa-check"></i>&nbsp;Iniciar Vistoria</a>
+						<a class="waves-effect waves-light btn-small blue esconde_na_vistoria" href="maps:daddr=38.715362,-75.086898"><i class="material-icons left">airport_shuttle</i>Ir</a>
+						<a class="waves-effect waves-light btn-small blue esconde_na_vistoria" onClick="IniciarVistoria()"><i class="material-icons left">assignment</i>Iniciar Vistoria</a>
 						<a class="waves-effect waves-light btn-small blue hide exibe_na_vistoria right" onClick="FinalizarVistoria()"><i class="material-icons left">assignment_turned_in</i>Finalizar</a>
 					
 					</div>
@@ -69,15 +67,50 @@
 			</div>
 		</div>
 	</div>
+	<div id="modal1" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<div class="row hide exibe_na_vistoria">
+				<div class="col s12">
+				  <ul class="tabs tabs-fixed-width">
+					<li class="tab col s3"><a href="#ocor-local">Localização</a></li>
+					<li class="tab col s3"><a href="#ocor-fotos">Fotos</a></li>
+					<li class="tab col s3"><a href="#ocor-desc">Descrição</a></li>
+				  </ul>
+				</div>
+				<div id="ocor-local" class="col s12">
+					<div class="collection">
+						<a class="collection-item waves-effect">Subsolo</a>
+					</div>
+				</div>
+				<div id="ocor-fotos" class="col s12">
+					<div class="fixed-action-btn">
+						<a 
+							class="btn-floating btn-large waves-effect
+								waves-light blue modal-trigger" href="#modal1">
+							<i class="material-icons">add</i>
+						</a>
+					</div>
+				</div>
+				<div id="ocor-desc" class="col s12">&nbsp;</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+			<a href="#!" class="modal-close waves-effect waves-light blue white-text btn-flat">Gravar</a>
+		</div>
+	</div>
+	
+	<div id="map" class="col s12">
+
+	</div>
+
 
   <!--  Scripts-->
-  <script src="node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
   <script src="node_modules/jquery-mousewheel/jquery.mousewheel.js"></script>
   <script src="node_modules/materialize-css/dist/js/materialize.js"></script>
   <script src="node_modules/leaflet/dist/leaflet.js"></script>
-  <script src="js/rotas.js"></script>
-  <script src="js/inicio.js"></script>
+  <script src="js/init.js"></script>
 
   </body>
 </html>

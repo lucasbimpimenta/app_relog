@@ -1,5 +1,5 @@
-var icon_w = 10;
-var icon_h = 10;
+var icon_w = 13;
+var icon_h = 13;
 
 var redIcon = L.icon({
 	iconUrl: 'imgs/red.png',
@@ -65,11 +65,11 @@ map.on('zoomend', function() {
     var currentZoom = map.getZoom();
 
     //Update X and Y based on zoom level
-    icon_h = 10 + (currentZoom*1); //Update x 
-    icon_w = 10 + (currentZoom*1); //Update Y
+    icon_h = 13 + (currentZoom*5); //Update x 
+    icon_w = 13 + (currentZoom*5); //Update Y
 
-	icon_h =  Math.pow(10, currentZoom+1);    
-	icon_w =  Math.pow(10, currentZoom+1);    
+	//icon_h =  Math.pow(10, currentZoom+1);    
+	//icon_w =  Math.pow(10, currentZoom+1);    
 	
 	console.log(currentZoom, icon_w, icon_h);
 	
